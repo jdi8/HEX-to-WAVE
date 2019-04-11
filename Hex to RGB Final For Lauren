@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Apr 10 20:00:41 2019
+
+@author: jdinge
+"""
+
+import matplotlib.pyplot as plt
+import numpy as np
+import math as m
+h = input('Enter hex: ').lstrip('#')
+RGB = tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+R = RGB[0]
+G = RGB[1]
+B = RGB[2]
+
+
+R=R/255
+G=G/255
+B=B/255
+
+if (R != 0 and G == 0 and B==0):
+    wavelength = 750-((((R**(1/0.8))-0.3)*(750-645))/0.7)
+    
+elif (R ==1 and G != 0 and B==0):
+    wavelength = (((G**(1/0.8))*(645-580))/-1)+645
+
+        
+elif(R != 0 and G==1 and B==0):
+    wavelength = (R**(1/0.8))*(580-510)+510
+
+        
+elif(R==0 and G==1 and B!=0):
+    wavelength = (((B**(1/0.8))*(510-490))/-1)+510
+
+        
+elif(R ==0 and G!= 0 and B ==1):
+    wavelength = (G**(1/0.8))*(490-440)+440
+                        
+elif(R != 0 and G == 0 and B !=0):
+    wavelength = ((((B**(1/0.8))-0.3)*(440-380))/0.7)+380
+    
+print(wavelength)
+
+
+plt.figure(1)
+plt.clf()
+x = np.linspace(0,2000,1000)
+y = np.sin(((2*m.pi)/(wavelength))*x)
+plt.plot(x,y)
+plt.xlabel("Wavelength in nanometers")
+plt.ylabel("Amplitude (This is irrelevant)")
